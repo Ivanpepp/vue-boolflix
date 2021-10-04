@@ -73,6 +73,9 @@ header{
                 text-decoration: none;
                 color: lightgray;
                 font-weight: bold;
+                &:hover{
+                    color: white;
+                }
             }
             
         }
