@@ -24,34 +24,34 @@ export default {
       needle: '',
       URLFilm: 'https://api.themoviedb.org/3/search/movie',
       URLTVSeries: 'https://api.themoviedb.org/3/search/tv',
+      apiKey: '3b011c5c1e17392d4dbd111e35c9ab78'
      
     }
-  },
-  created: function(){
-    axios.get(this.URLFilm, {
-      params: {
-        api_key: '3b011c5c1e17392d4dbd111e35c9ab78',
-        query: 'ritorno al futuro'
-      }
-    }).then((response) =>{
-      this.filmGroup = [...response.data.results]
-      console.log(this.filmGroup);
-    }),
-     axios.get(this.URLTVSeries, {
-      params: {
-        api_key: '3b011c5c1e17392d4dbd111e35c9ab78',
-        query: 'ritorno al futuro'
-      }
-    }).then((response) =>{
-      this.TVSeriesGroup = [...response.data.results];
-      console.log(this.TVSeriesGroup)
-    })
-
   },
   methods: {
 
     searchNeedledFilms: function(needle){
-      this.needle = needle;
+        if(needle.length > 0){
+            axios.get(this.URLFilm, {
+        params: {
+          api_key: this.apiKey,
+          query: needle
+        }
+      }).then((response) =>{
+        this.filmGroup = [...response.data.results]
+        console.log(this.filmGroup);
+      });
+      axios.get(this.URLTVSeries, {
+        params: {
+          api_key: this.apiKey,
+          query: needle
+        }
+      }).then((response) =>{
+        this.TVSeriesGroup = [...response.data.results];
+        console.log(this.TVSeriesGroup)
+      })
+        }
+        this.needle = needle;
     }
   }
 }
